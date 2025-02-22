@@ -1,19 +1,33 @@
-import java.util.Scanner;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
 
 public class Main {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Введите число: ");
-        int number = scanner.nextInt();
 
-        try {
-            long result = Factorial.factorial(number);
-            System.out.println("Факториал " + number + " = " + result);
-        } catch (IllegalArgumentException e) {
-            System.out.println("Ошибка: " + e.getMessage());
+        WebDriver driver;
+
+        @BeforeAll
+        static void setupAll() {
+            WebDriverManager.chromedriver().setup();
         }
 
-        scanner.close();
+        @BeforeEach
+        void setup() {
+            driver = new ChromeDriver();
+        }
+
+        @AfterEach
+        void teardown() {
+            driver.quit();
+        }
     }
 }
 
